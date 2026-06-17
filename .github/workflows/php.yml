@@ -27,15 +27,14 @@ jobs:
     - name: PHP Syntax Check
       run: find . -name "*.php" -not -path "./.github/*" -not -path "./vendor/*" -exec php -l {} \;
 
-    - name: Build Plugin Zip
+    - name: Prepare Plugin Directory
       run: |
-        mkdir -p build/paksa-cart-recovery
-        cp -r admin assets includes languages templates build/paksa-cart-recovery/
-        cp paksa-cart-recovery.php index.php uninstall.php composer.json build/paksa-cart-recovery/
-        cd build && zip -r ../paksa-cart-recovery.zip paksa-cart-recovery/
+        mkdir -p paksa-cart-recovery
+        cp -r admin assets includes languages templates paksa-cart-recovery/
+        cp paksa-cart-recovery.php index.php uninstall.php composer.json paksa-cart-recovery/
 
-    - name: Upload Plugin Zip
+    - name: Upload Installable Plugin
       uses: actions/upload-artifact@v4
       with:
         name: paksa-cart-recovery
-        path: paksa-cart-recovery.zip
+        path: paksa-cart-recovery/
