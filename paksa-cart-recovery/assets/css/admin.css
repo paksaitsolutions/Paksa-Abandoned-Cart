@@ -1,0 +1,96 @@
+.paksa-cr-wrap .nav-tab-wrapper { margin-bottom: 20px; }
+.paksa-cr-version { font-size: 12px; color: #999; font-weight: normal; }
+
+/* Stats Grid */
+.paksa-cr-stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 16px; margin-bottom: 24px; }
+.paksa-cr-stats-small { grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); }
+.paksa-cr-stat-card { background: #fff; border: 1px solid #c3c4c7; border-radius: 8px; padding: 20px; display: flex; align-items: center; gap: 12px; transition: box-shadow 0.2s; }
+.paksa-cr-stat-card:hover { box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+.paksa-cr-stat-danger { border-left: 4px solid #d63638; }
+.paksa-cr-stat-success { border-left: 4px solid #00a32a; }
+.paksa-cr-stat-warning { border-left: 4px solid #dba617; }
+.paksa-cr-stat-icon { font-size: 28px; }
+.paksa-cr-stat-content h3 { margin: 0; font-size: 20px; line-height: 1.2; }
+.paksa-cr-stat-content p { margin: 2px 0 0; color: #646970; font-size: 13px; }
+
+/* Today's Stats */
+.paksa-cr-today-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 12px; }
+.paksa-cr-today-item { display: flex; flex-direction: column; padding: 12px; background: #f9f9f9; border-radius: 6px; }
+.paksa-cr-today-label { font-size: 12px; color: #646970; margin-bottom: 4px; }
+.paksa-cr-today-value { font-size: 18px; font-weight: 600; }
+
+/* Colors */
+.paksa-cr-text-success { color: #00a32a; }
+.paksa-cr-text-danger { color: #d63638; }
+.paksa-cr-text-warning { color: #dba617; }
+
+/* Layout */
+.paksa-cr-row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+@media (max-width: 1200px) { .paksa-cr-row { grid-template-columns: 1fr; } }
+.paksa-cr-card { background: #fff; border: 1px solid #c3c4c7; border-radius: 8px; padding: 24px; margin-bottom: 20px; }
+.paksa-cr-card h2, .paksa-cr-card h3 { margin-top: 0; }
+
+/* Tables */
+.paksa-cr-table { margin-top: 12px; }
+.paksa-cr-table th { font-weight: 600; }
+
+/* Status Badges */
+.paksa-cr-status { padding: 4px 10px; border-radius: 12px; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.3px; }
+.paksa-cr-status-active { background: #e0f0ff; color: #0073aa; }
+.paksa-cr-status-abandoned { background: #fcf0f1; color: #d63638; }
+.paksa-cr-status-recovered { background: #ecf7ed; color: #00a32a; }
+.paksa-cr-status-expired { background: #f0f0f1; color: #646970; }
+
+/* Cart Tab Badge */
+.paksa-cr-badge { background: #d63638; color: #fff; font-size: 10px; padding: 2px 6px; border-radius: 10px; margin-left: 4px; }
+
+/* Items Badge */
+.paksa-cr-items-badge { background: #f0f0f1; padding: 3px 8px; border-radius: 4px; font-size: 12px; }
+
+/* Carts Header */
+.paksa-cr-carts-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 16px; flex-wrap: wrap; gap: 12px; }
+.paksa-cr-carts-actions { display: flex; align-items: center; gap: 12px; }
+.paksa-cr-total-count { color: #646970; font-size: 13px; }
+.paksa-cr-filter-form { display: flex; gap: 6px; align-items: center; flex-wrap: wrap; }
+.paksa-cr-filter-form input[type="date"] { width: 140px; }
+.paksa-cr-filter-form input[type="text"] { width: 200px; }
+
+/* Actions */
+.paksa-cr-actions { white-space: nowrap; }
+.paksa-cr-actions .button, .paksa-cr-actions a.button { margin: 1px; padding: 0 6px; min-height: 28px; line-height: 26px; }
+.paksa-cr-bulk-actions { margin-top: 12px; display: flex; gap: 8px; align-items: center; }
+.paksa-cr-pagination { margin-top: 16px; }
+.paksa-cr-empty { padding: 40px; text-align: center; color: #646970; font-size: 14px; }
+
+/* Copy Button */
+.paksa-cr-copy-btn { cursor: pointer; border: none; background: none; padding: 0 4px; font-size: 14px; vertical-align: middle; opacity: 0.6; transition: opacity 0.2s; }
+.paksa-cr-copy-btn:hover { opacity: 1; }
+
+/* Detail Row */
+.paksa-cr-detail-row td { padding: 0 !important; }
+.paksa-cr-detail-cell { padding: 16px 24px !important; background: #f9f9f9; }
+.paksa-cr-detail table { margin: 0; }
+.paksa-cr-detail code { background: #e8e8e8; padding: 2px 8px; border-radius: 3px; font-size: 12px; word-break: break-all; }
+
+/* Report Header */
+.paksa-cr-report-header { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; margin-bottom: 12px; }
+.paksa-cr-report-header h2 { margin: 0; }
+
+/* Tools */
+.paksa-cr-tool-result { margin-left: 12px; color: #00a32a; font-weight: 600; }
+.paksa-cr-info-table th { width: 160px; padding: 8px 10px; font-size: 13px; }
+.paksa-cr-info-table td { padding: 8px 10px; font-size: 13px; }
+
+/* Phone highlight */
+.paksa-cr-phone { font-weight: 600; font-family: monospace; }
+
+/* Products tooltip */
+.paksa-cr-products { max-width: 200px; display: inline-block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+/* Responsive */
+@media (max-width: 782px) {
+    .paksa-cr-stats-grid { grid-template-columns: 1fr 1fr; }
+    .paksa-cr-carts-header { flex-direction: column; }
+    .paksa-cr-filter-form { width: 100%; }
+    .paksa-cr-filter-form input[type="text"] { width: 100%; }
+}

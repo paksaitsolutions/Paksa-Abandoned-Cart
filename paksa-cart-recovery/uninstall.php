@@ -1,0 +1,55 @@
+<?php
+/**
+ * Paksa Cart Recovery - Uninstall
+ * 
+ * This file runs when the plugin is deleted from WordPress admin.
+ * It removes ALL plugin data from the database.
+ * WordPress automatically deletes the plugin folder/files.
+ */
+
+// Exit if not called by WordPress uninstall
+if (!defined('WP_UNINSTALL_PLUGIN')) {
+    exit;
+}
+
+global $wpdb;
+
+// 1. Drop custom database table
+$table = $wpdb->prefix . 'paksa_abandoned_carts';
+$wpdb->query("DROP TABLE IF EXISTS {$table}");
+
+// 2. Delete all plugin options
+$options = [
+    'paksa_cr_db_version',
+    'paksa_cr_abandon_timeout',
+    'paksa_cr_retention_days',
+    'paksa_cr_token_expiry_days',
+    'paksa_cr_email_enabled',
+    'paksa_cr_email_1h',
+    'paksa_cr_email_24h',
+    'paksa_cr_email_72h',
+    'paksa_cr_email_template_1h',
+    'paksa_cr_email_template_24h',
+    'paksa_cr_email_template_72h',
+    'paksa_cr_exclude_products',
+    'paksa_cr_whatsapp_enabled',
+    'paksa_cr_whatsapp_message',
+];
+
+foreach ($options as $option) {
+    delete_option($option);
+}
+
+// 3. Clear all scheduled cron events
+wp_clear_scheduled_hook('paksa_cr_check_abandoned');
+
+// 4. Delete any transients created by the plugin
+$wpdb->query("DELETE FROM {$wpdb->options} WHERE option_name LIKE '%paksa_cr%'");
+$wpdb->query("DELETE FROM {$wpdb->options} WHERE option_name LIKE '%_transient_paksa%'");
+$wpdb->query("DELETE FROM {$wpdb->options} WHERE option_name LIKE '%_transient_timeout_paksa%'");
+
+// 5. Clean user meta if any
+$wpdb->query("DELETE FROM {$wpdb->usermeta} WHERE meta_key LIKE '%paksa_cr%'");
+
+// 6. Clean WooCommerce sessions related to plugin
+$wpdb->query("DELETE FROM {$wpdb->options} WHERE option_name LIKE '%paksa_cr_session%'");
