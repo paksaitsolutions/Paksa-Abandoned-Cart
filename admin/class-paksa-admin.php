@@ -139,12 +139,23 @@ class Paksa_Admin {
             update_option('paksa_cr_abandon_timeout', absint($_POST['abandon_timeout'] ?? 30));
             update_option('paksa_cr_retention_days', absint($_POST['retention_days'] ?? 90));
             update_option('paksa_cr_token_expiry_days', absint($_POST['token_expiry_days'] ?? 7));
+            update_option('paksa_cr_coupon_enabled', isset($_POST['coupon_enabled']) ? 'yes' : 'no');
+            update_option('paksa_cr_coupon_type', sanitize_text_field($_POST['coupon_type'] ?? 'percent'));
+            update_option('paksa_cr_coupon_amount', absint($_POST['coupon_amount'] ?? 10));
+            update_option('paksa_cr_coupon_expiry', absint($_POST['coupon_expiry'] ?? 48));
+            update_option('paksa_cr_coupon_min_cart', absint($_POST['coupon_min_cart'] ?? 0));
+            update_option('paksa_cr_popup_enabled', isset($_POST['popup_enabled']) ? 'yes' : 'no');
+            update_option('paksa_cr_popup_trigger', sanitize_text_field($_POST['popup_trigger'] ?? 'exit'));
+            update_option('paksa_cr_popup_delay', absint($_POST['popup_delay'] ?? 30));
+            update_option('paksa_cr_popup_heading', sanitize_text_field($_POST['popup_heading'] ?? ''));
+            update_option('paksa_cr_popup_text', sanitize_text_field($_POST['popup_text'] ?? ''));
+            update_option('paksa_cr_popup_button', sanitize_text_field($_POST['popup_button'] ?? ''));
+            update_option('paksa_cr_whatsapp_enabled', isset($_POST['whatsapp_enabled']) ? 'yes' : 'no');
+            update_option('paksa_cr_whatsapp_message', sanitize_textarea_field($_POST['whatsapp_message'] ?? ''));
             update_option('paksa_cr_email_enabled', sanitize_text_field($_POST['email_enabled'] ?? 'no'));
             update_option('paksa_cr_email_1h', isset($_POST['email_1h']) ? 'yes' : 'no');
             update_option('paksa_cr_email_24h', isset($_POST['email_24h']) ? 'yes' : 'no');
             update_option('paksa_cr_email_72h', isset($_POST['email_72h']) ? 'yes' : 'no');
-            update_option('paksa_cr_whatsapp_enabled', isset($_POST['whatsapp_enabled']) ? 'yes' : 'no');
-            update_option('paksa_cr_whatsapp_message', sanitize_textarea_field($_POST['whatsapp_message'] ?? ''));
             echo '<div class="updated"><p>' . esc_html__('Settings saved.', 'paksa-cart-recovery') . '</p></div>';
         }
         include PAKSA_CR_PATH . 'admin/views/settings.php';

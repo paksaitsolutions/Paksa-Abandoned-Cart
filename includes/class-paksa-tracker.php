@@ -233,6 +233,21 @@ class Paksa_Tracker {
                 'recovered_at'  => current_time('mysql'),
                 'recovered_via' => $via,
             ]);
+
+            // Add order note
+            $order = wc_get_order($order_id);
+            if ($order) {
+                $note = sprintf(
+                    __('♻️ Recovered from abandoned cart #%d via %s. Cart was abandoned %s.', 'paksa-cart-recovery'),
+                    $existing->id,
+                    $via,
+                    $existing->abandoned_at ? human_time_diff(strtotime($existing->abandoned_at)) . ' ago' : 'N/A'
+                );
+                $order->add_order_note($note);
+                $order->update_meta_data('_paksa_cr_recovered', '1');
+                $order->update_meta_data('_paksa_cr_cart_id', $existing->id);
+                $order->save();
+            }
         }
     }
 

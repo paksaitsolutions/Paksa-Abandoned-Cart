@@ -3,7 +3,7 @@
  * Plugin Name: Paksa Cart Recovery
  * Plugin URI: https://paksa.com.pk
  * Description: Phone-number-based abandoned cart recovery for WooCommerce. Built for Pakistani eCommerce markets.
- * Version: 1.1.0
+ * Version: 1.2.0
  * Author: Paksa IT Solutions
  * Author URI: https://paksa.com.pk
  * License: GPL v2 or later
@@ -17,7 +17,7 @@
 
 defined('ABSPATH') || exit;
 
-define('PAKSA_CR_VERSION', '1.1.0');
+define('PAKSA_CR_VERSION', '1.2.0');
 define('PAKSA_CR_FILE', __FILE__);
 define('PAKSA_CR_PATH', plugin_dir_path(__FILE__));
 define('PAKSA_CR_URL', plugin_dir_url(__FILE__));
@@ -77,6 +77,8 @@ final class Paksa_Cart_Recovery {
         require_once PAKSA_CR_PATH . 'includes/class-paksa-recovery.php';
         require_once PAKSA_CR_PATH . 'includes/class-paksa-cron.php';
         require_once PAKSA_CR_PATH . 'includes/class-paksa-email.php';
+        require_once PAKSA_CR_PATH . 'includes/class-paksa-coupon.php';
+        require_once PAKSA_CR_PATH . 'includes/class-paksa-popup.php';
         require_once PAKSA_CR_PATH . 'includes/class-paksa-updater.php';
 
         if (is_admin()) {
@@ -91,6 +93,8 @@ final class Paksa_Cart_Recovery {
 
         new Paksa_Tracker();
         new Paksa_Cron();
+        new Paksa_Coupon();
+        new Paksa_Popup();
         new Paksa_Updater();
 
         if (is_admin()) {

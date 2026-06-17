@@ -152,13 +152,24 @@ class Paksa_Recovery {
         $phone   = Paksa_DB::phone_for_whatsapp($cart->phone_number);
         $message = get_option('paksa_cr_whatsapp_message', '');
 
+        // Generate coupon if enabled
+        $coupon_code = Paksa_Coupon::get_or_create_for_cart($cart);
+        $coupon_text = $coupon_code ? "\n" . Paksa_Coupon::get_coupon_message($coupon_code) : '';
+
         $replacements = [
             '{customer_name}' => $cart->customer_name ?: __('Customer', 'paksa-cart-recovery'),
             '{recovery_link}' => self::get_recovery_url($cart->recovery_token),
             '{cart_total}'    => strip_tags(wc_price($cart->cart_total)),
             '{store_name}'    => get_bloginfo('name'),
+            '{coupon_code}'   => $coupon_code ?: '',
+            '{coupon_text}'   => $coupon_text,
         ];
         $message = str_replace(array_keys($replacements), array_values($replacements), $message);
+
+        // Append coupon if placeholder not in template
+        if ($coupon_text && strpos($message, $coupon_code) === false) {
+            $message .= $coupon_text;
+        }
 
         return 'https://wa.me/' . $phone . '?text=' . rawurlencode($message);
     }

@@ -65,9 +65,19 @@ class Paksa_DB {
             'paksa_cr_email_1h'          => 'yes',
             'paksa_cr_email_24h'         => 'yes',
             'paksa_cr_email_72h'         => 'yes',
-            'paksa_cr_exclude_products'  => '',
             'paksa_cr_whatsapp_enabled'  => 'yes',
             'paksa_cr_whatsapp_message'  => "Hi {customer_name}, you left items worth {cart_total} in your cart at {store_name}. Complete your order here: {recovery_link}",
+            'paksa_cr_coupon_enabled'    => 'no',
+            'paksa_cr_coupon_type'       => 'percent',
+            'paksa_cr_coupon_amount'     => 10,
+            'paksa_cr_coupon_expiry'     => 48,
+            'paksa_cr_coupon_min_cart'   => 0,
+            'paksa_cr_popup_enabled'     => 'no',
+            'paksa_cr_popup_trigger'     => 'exit',
+            'paksa_cr_popup_delay'       => 30,
+            'paksa_cr_popup_heading'     => "Wait! Don't leave yet!",
+            'paksa_cr_popup_text'        => "Enter your phone number and we'll save your cart for you.",
+            'paksa_cr_popup_button'      => 'Save My Cart',
         ];
         foreach ($defaults as $key => $value) {
             if (get_option($key) === false) {

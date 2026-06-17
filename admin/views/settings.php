@@ -32,6 +32,89 @@
         </div>
 
         <div class="paksa-cr-card">
+            <h2><?php esc_html_e('🎟️ Recovery Coupon', 'paksa-cart-recovery'); ?></h2>
+            <table class="form-table">
+                <tr>
+                    <th><?php esc_html_e('Enable Coupon', 'paksa-cart-recovery'); ?></th>
+                    <td>
+                        <label><input type="checkbox" name="coupon_enabled" value="yes" <?php checked(get_option('paksa_cr_coupon_enabled', 'no'), 'yes'); ?>> <?php esc_html_e('Auto-generate discount coupon with recovery messages', 'paksa-cart-recovery'); ?></label>
+                        <p class="description"><?php esc_html_e('A unique coupon is included in WhatsApp messages and emails to incentivize purchase.', 'paksa-cart-recovery'); ?></p>
+                    </td>
+                </tr>
+                <tr>
+                    <th><label for="coupon_type"><?php esc_html_e('Discount Type', 'paksa-cart-recovery'); ?></label></th>
+                    <td>
+                        <select id="coupon_type" name="coupon_type">
+                            <option value="percent" <?php selected(get_option('paksa_cr_coupon_type', 'percent'), 'percent'); ?>><?php esc_html_e('Percentage (%)', 'paksa-cart-recovery'); ?></option>
+                            <option value="fixed_cart" <?php selected(get_option('paksa_cr_coupon_type', 'percent'), 'fixed_cart'); ?>><?php esc_html_e('Fixed Amount', 'paksa-cart-recovery'); ?></option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <th><label for="coupon_amount"><?php esc_html_e('Discount Amount', 'paksa-cart-recovery'); ?></label></th>
+                    <td>
+                        <input type="number" id="coupon_amount" name="coupon_amount" value="<?php echo esc_attr(get_option('paksa_cr_coupon_amount', 10)); ?>" min="1" max="90" step="1" class="small-text">
+                    </td>
+                </tr>
+                <tr>
+                    <th><label for="coupon_expiry"><?php esc_html_e('Coupon Expiry (hours)', 'paksa-cart-recovery'); ?></label></th>
+                    <td>
+                        <input type="number" id="coupon_expiry" name="coupon_expiry" value="<?php echo esc_attr(get_option('paksa_cr_coupon_expiry', 48)); ?>" min="1" max="720" class="small-text">
+                        <p class="description"><?php esc_html_e('Coupon expires after this many hours. Creates urgency.', 'paksa-cart-recovery'); ?></p>
+                    </td>
+                </tr>
+                <tr>
+                    <th><label for="coupon_min_cart"><?php esc_html_e('Minimum Cart Value', 'paksa-cart-recovery'); ?></label></th>
+                    <td>
+                        <input type="number" id="coupon_min_cart" name="coupon_min_cart" value="<?php echo esc_attr(get_option('paksa_cr_coupon_min_cart', 0)); ?>" min="0" step="1" class="small-text">
+                        <p class="description"><?php esc_html_e('Set to 0 for no minimum. Coupons only generated for carts above this value.', 'paksa-cart-recovery'); ?></p>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="paksa-cr-card">
+            <h2><?php esc_html_e('🚪 Exit Intent Popup', 'paksa-cart-recovery'); ?></h2>
+            <table class="form-table">
+                <tr>
+                    <th><?php esc_html_e('Enable Popup', 'paksa-cart-recovery'); ?></th>
+                    <td>
+                        <label><input type="checkbox" name="popup_enabled" value="yes" <?php checked(get_option('paksa_cr_popup_enabled', 'no'), 'yes'); ?>> <?php esc_html_e('Show popup to capture phone number when customer tries to leave', 'paksa-cart-recovery'); ?></label>
+                        <p class="description"><?php esc_html_e('Captures customer phone number early — before they reach checkout.', 'paksa-cart-recovery'); ?></p>
+                    </td>
+                </tr>
+                <tr>
+                    <th><label for="popup_trigger"><?php esc_html_e('Trigger Method', 'paksa-cart-recovery'); ?></label></th>
+                    <td>
+                        <select id="popup_trigger" name="popup_trigger">
+                            <option value="exit" <?php selected(get_option('paksa_cr_popup_trigger', 'exit'), 'exit'); ?>><?php esc_html_e('Exit Intent (mouse leaves window)', 'paksa-cart-recovery'); ?></option>
+                            <option value="timer" <?php selected(get_option('paksa_cr_popup_trigger', 'exit'), 'timer'); ?>><?php esc_html_e('Time Delay', 'paksa-cart-recovery'); ?></option>
+                            <option value="both" <?php selected(get_option('paksa_cr_popup_trigger', 'exit'), 'both'); ?>><?php esc_html_e('Both (whichever happens first)', 'paksa-cart-recovery'); ?></option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <th><label for="popup_delay"><?php esc_html_e('Timer Delay (seconds)', 'paksa-cart-recovery'); ?></label></th>
+                    <td>
+                        <input type="number" id="popup_delay" name="popup_delay" value="<?php echo esc_attr(get_option('paksa_cr_popup_delay', 30)); ?>" min="5" max="300" class="small-text">
+                    </td>
+                </tr>
+                <tr>
+                    <th><label for="popup_heading"><?php esc_html_e('Popup Heading', 'paksa-cart-recovery'); ?></label></th>
+                    <td><input type="text" id="popup_heading" name="popup_heading" value="<?php echo esc_attr(get_option('paksa_cr_popup_heading', "Wait! Don't leave yet!")); ?>" class="large-text"></td>
+                </tr>
+                <tr>
+                    <th><label for="popup_text"><?php esc_html_e('Popup Text', 'paksa-cart-recovery'); ?></label></th>
+                    <td><input type="text" id="popup_text" name="popup_text" value="<?php echo esc_attr(get_option('paksa_cr_popup_text', "Enter your phone number and we'll save your cart for you.")); ?>" class="large-text"></td>
+                </tr>
+                <tr>
+                    <th><label for="popup_button"><?php esc_html_e('Button Text', 'paksa-cart-recovery'); ?></label></th>
+                    <td><input type="text" id="popup_button" name="popup_button" value="<?php echo esc_attr(get_option('paksa_cr_popup_button', 'Save My Cart')); ?>" class="regular-text"></td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="paksa-cr-card">
             <h2><?php esc_html_e('💬 WhatsApp Recovery', 'paksa-cart-recovery'); ?></h2>
             <table class="form-table">
                 <tr>
@@ -45,7 +128,7 @@
                     <th><label for="whatsapp_message"><?php esc_html_e('WhatsApp Message Template', 'paksa-cart-recovery'); ?></label></th>
                     <td>
                         <textarea id="whatsapp_message" name="whatsapp_message" rows="4" class="large-text"><?php echo esc_textarea(get_option('paksa_cr_whatsapp_message', '')); ?></textarea>
-                        <p class="description"><?php esc_html_e('Placeholders: {customer_name}, {cart_total}, {recovery_link}, {store_name}', 'paksa-cart-recovery'); ?></p>
+                        <p class="description"><?php esc_html_e('Placeholders: {customer_name}, {cart_total}, {recovery_link}, {store_name}, {coupon_code}, {coupon_text}', 'paksa-cart-recovery'); ?></p>
                     </td>
                 </tr>
             </table>

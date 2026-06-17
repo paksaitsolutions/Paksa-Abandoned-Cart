@@ -15,6 +15,10 @@ class Paksa_Email {
         $items = maybe_unserialize($cart->cart_data);
         $products_html = self::build_products_html($items);
 
+        // Generate coupon if enabled
+        $coupon_code = Paksa_Coupon::get_or_create_for_cart($cart);
+        $coupon_html = $coupon_code ? self::build_coupon_html($coupon_code) : '';
+
         // Replace placeholders
         $replacements = [
             '{customer_name}' => $cart->customer_name ?: __('Customer', 'paksa-cart-recovery'),
@@ -24,6 +28,8 @@ class Paksa_Email {
             '{store_url}'     => home_url(),
             '{products_list}' => $products_html,
             '{items_count}'   => $cart->cart_items_count ?: count($items ?: []),
+            '{coupon_code}'   => $coupon_code ?: '',
+            '{coupon_block}'  => $coupon_html,
         ];
 
         $subject = str_replace(array_keys($replacements), array_values($replacements), $subject);
@@ -37,6 +43,15 @@ class Paksa_Email {
         ];
 
         return wp_mail($cart->email, $subject, $body, $headers);
+    }
+
+    private static function build_coupon_html(string $code): string {
+        $message = Paksa_Coupon::get_coupon_message($code);
+        return '<div style="background:#f0f9ff;border:2px dashed #0073aa;border-radius:8px;padding:16px;margin:16px 0;text-align:center;">'
+            . '<p style="margin:0 0 8px;font-size:13px;color:#555;">' . esc_html__('Special Discount For You:', 'paksa-cart-recovery') . '</p>'
+            . '<p style="margin:0;font-size:22px;font-weight:700;color:#0073aa;letter-spacing:2px;">' . esc_html($code) . '</p>'
+            . '<p style="margin:8px 0 0;font-size:12px;color:#666;">' . esc_html($message) . '</p>'
+            . '</div>';
     }
 
     private static function build_products_html(?array $items): string {

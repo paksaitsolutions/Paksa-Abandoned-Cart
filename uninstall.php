@@ -31,9 +31,19 @@ $options = [
     'paksa_cr_email_template_1h',
     'paksa_cr_email_template_24h',
     'paksa_cr_email_template_72h',
-    'paksa_cr_exclude_products',
     'paksa_cr_whatsapp_enabled',
     'paksa_cr_whatsapp_message',
+    'paksa_cr_coupon_enabled',
+    'paksa_cr_coupon_type',
+    'paksa_cr_coupon_amount',
+    'paksa_cr_coupon_expiry',
+    'paksa_cr_coupon_min_cart',
+    'paksa_cr_popup_enabled',
+    'paksa_cr_popup_trigger',
+    'paksa_cr_popup_delay',
+    'paksa_cr_popup_heading',
+    'paksa_cr_popup_text',
+    'paksa_cr_popup_button',
 ];
 
 foreach ($options as $option) {
