@@ -1,0 +1,23 @@
+{
+    "name": "paksa/paksa-cart-recovery",
+    "description": "Phone-number-based abandoned cart recovery for WooCommerce. Built for Pakistani eCommerce markets.",
+    "type": "wordpress-plugin",
+    "license": "GPL-2.0-or-later",
+    "authors": [
+        {
+            "name": "Paksa IT Solutions",
+            "email": "info@paksa.com.pk",
+            "homepage": "https://paksa.com.pk"
+        }
+    ],
+    "require": {
+        "php": ">=8.0"
+    },
+    "config": {
+        "preferred-install": "dist",
+        "sort-packages": true
+    },
+    "scripts": {
+        "test": "echo 'No tests configured yet.'"
+    }
+}
