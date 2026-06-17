@@ -115,33 +115,32 @@ Paksa Cart Recovery solves this challenge by making **mobile phone numbers the p
 
 ## 🚀 Installation
 
-### Step 1
+### Method 1: Download from GitHub Releases (Recommended)
 
-Upload plugin files to:
+1. Go to [Releases](../../releases) page
+2. Download `paksa-cart-recovery.zip` from the latest release
+3. Go to **WordPress Admin → Plugins → Add New → Upload Plugin**
+4. Upload the zip file and click **Install Now**
+5. Click **Activate**
 
-```text
-/wp-content/plugins/paksa-cart-recovery/
-```
+### Method 2: Download from GitHub Actions
 
-### Step 2
+1. Go to [Actions](../../actions) tab
+2. Click the latest successful workflow run
+3. Download the `paksa-cart-recovery` artifact (zip)
+4. Upload to WordPress as above
 
-Activate the plugin from:
+### Method 3: Manual Upload
 
-```text
-WordPress Admin → Plugins
-```
+1. Download this repository
+2. Create a folder named `paksa-cart-recovery`
+3. Copy all plugin files (admin, assets, includes, languages, templates, paksa-cart-recovery.php, index.php, uninstall.php) into that folder
+4. Upload to `/wp-content/plugins/paksa-cart-recovery/`
+5. Activate from **WordPress Admin → Plugins**
 
-### Step 3
+### After Activation
 
-Navigate to:
-
-```text
-WooCommerce → Paksa Cart Recovery
-```
-
-### Step 4
-
-Configure plugin settings and start recovering abandoned carts.
+Navigate to **WooCommerce → Paksa Cart Recovery** and configure settings.
 
 ---
 

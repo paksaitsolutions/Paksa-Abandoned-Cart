@@ -1,4 +1,4 @@
-name: PHP Validation
+name: Build & Validate
 
 on:
   push:
@@ -7,7 +7,7 @@ on:
     branches: [ "main" ]
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   validate:
@@ -25,4 +25,17 @@ jobs:
       run: composer validate --strict
 
     - name: PHP Syntax Check
-      run: find paksa-cart-recovery -name "*.php" -exec php -l {} \;
+      run: find . -name "*.php" -not -path "./.github/*" -not -path "./vendor/*" -exec php -l {} \;
+
+    - name: Build Plugin Zip
+      run: |
+        mkdir -p build/paksa-cart-recovery
+        cp -r admin assets includes languages templates build/paksa-cart-recovery/
+        cp paksa-cart-recovery.php index.php uninstall.php composer.json build/paksa-cart-recovery/
+        cd build && zip -r ../paksa-cart-recovery.zip paksa-cart-recovery/
+
+    - name: Upload Plugin Zip
+      uses: actions/upload-artifact@v4
+      with:
+        name: paksa-cart-recovery
+        path: paksa-cart-recovery.zip

@@ -1,0 +1,27 @@
+name: Release Plugin
+
+on:
+  release:
+    types: [ published ]
+
+permissions:
+  contents: write
+
+jobs:
+  build-release:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Build Plugin Zip
+      run: |
+        mkdir -p build/paksa-cart-recovery
+        cp -r admin assets includes languages templates build/paksa-cart-recovery/
+        cp paksa-cart-recovery.php index.php uninstall.php composer.json build/paksa-cart-recovery/
+        cd build && zip -r ../paksa-cart-recovery.zip paksa-cart-recovery/
+
+    - name: Upload to Release
+      uses: softprops/action-gh-release@v1
+      with:
+        files: paksa-cart-recovery.zip
