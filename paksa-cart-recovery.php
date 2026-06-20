@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name: Paksa Cart Recovery
- * Plugin URI: https://paksa.com.pk
+ * Plugin URI: https://github.com/paksaitsolutions/Paksa-Abandoned-Cart
  * Description: Phone-number-based abandoned cart recovery for WooCommerce. Built for Pakistani eCommerce markets.
  * Version: 1.4.0
  * Author: Paksa IT Solutions
