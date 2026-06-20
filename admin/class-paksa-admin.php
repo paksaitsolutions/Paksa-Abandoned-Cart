@@ -82,6 +82,7 @@ class Paksa_Admin {
     private function render_dashboard(): void {
         $stats = Paksa_DB::get_stats();
         $top_products = Paksa_DB::get_top_products(5);
+        $top_locations = Paksa_DB::get_top_locations(5);
         $recent = Paksa_DB::get_carts(['status' => 'abandoned', 'per_page' => 10]);
         include PAKSA_CR_PATH . 'admin/views/dashboard.php';
     }
@@ -224,7 +225,11 @@ class Paksa_Admin {
         $html .= '<p><strong>' . __('Recovery Link:', 'paksa-cart-recovery') . '</strong> <code>' . esc_html(Paksa_Recovery::get_recovery_url($cart->recovery_token)) . '</code></p>';
 
         if ($cart->ip_address) {
-            $html .= '<p><strong>' . __('IP:', 'paksa-cart-recovery') . '</strong> ' . esc_html($cart->ip_address) . '</p>';
+            $html .= '<p><strong>' . __('IP:', 'paksa-cart-recovery') . '</strong> ' . esc_html($cart->ip_address);
+            if (!empty($cart->location) && $cart->location !== '—') {
+                $html .= ' &nbsp;📍 <strong>' . esc_html($cart->location) . '</strong>';
+            }
+            $html .= '</p>';
         }
         if ($cart->created_at) {
             $html .= '<p><strong>' . __('Created:', 'paksa-cart-recovery') . '</strong> ' . esc_html($cart->created_at) . '</p>';
@@ -239,7 +244,7 @@ class Paksa_Admin {
         $status = sanitize_text_field($_POST['export_status'] ?? '');
         $carts = Paksa_DB::get_carts(['per_page' => 99999, 'offset' => 0, 'status' => $status]);
 
-        $rows = [['ID', 'Customer Name', 'Phone Number', 'Email', 'Cart Total', 'Items', 'Status', 'Abandoned At', 'Recovered At', 'Recovery Link']];
+        $rows = [['ID', 'Customer Name', 'Phone Number', 'Email', 'Cart Total', 'Items', 'Status', 'Location', 'Abandoned At', 'Recovered At', 'Recovery Link']];
         foreach ($carts as $cart) {
             $items = maybe_unserialize($cart->cart_data);
             $item_names = is_array($items) ? implode(' | ', array_column($items, 'name')) : '';
@@ -251,6 +256,7 @@ class Paksa_Admin {
                 $cart->cart_total,
                 $item_names,
                 $cart->status,
+                $cart->location ?? '',
                 $cart->abandoned_at ?: '',
                 $cart->recovered_at ?: '',
                 Paksa_Recovery::get_recovery_url($cart->recovery_token),

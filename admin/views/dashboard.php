@@ -107,6 +107,34 @@
 
         <div class="paksa-cr-col">
             <div class="paksa-cr-card">
+                <h2><?php esc_html_e('📍 Top Abandonment Locations', 'paksa-cart-recovery'); ?></h2>
+                <?php if ($top_locations): ?>
+                <table class="widefat striped">
+                    <thead><tr>
+                        <th><?php esc_html_e('Location', 'paksa-cart-recovery'); ?></th>
+                        <th><?php esc_html_e('Carts', 'paksa-cart-recovery'); ?></th>
+                        <th><?php esc_html_e('Revenue Lost', 'paksa-cart-recovery'); ?></th>
+                    </tr></thead>
+                    <tbody>
+                    <?php foreach ($top_locations as $loc): ?>
+                        <tr>
+                            <td><?php echo esc_html($loc->location); ?></td>
+                            <td><strong><?php echo esc_html($loc->count); ?></strong></td>
+                            <td><?php echo wc_price($loc->revenue); ?></td>
+                        </tr>
+                    <?php endforeach; ?>
+                    </tbody>
+                </table>
+                <?php else: ?>
+                    <p class="paksa-cr-empty"><?php esc_html_e('Location data will appear after cron resolves IP addresses.', 'paksa-cart-recovery'); ?></p>
+                <?php endif; ?>
+            </div>
+        </div>
+    </div>
+
+    <div class="paksa-cr-row">
+        <div class="paksa-cr-col">
+            <div class="paksa-cr-card">
                 <h2><?php esc_html_e('🕐 Recent Abandoned Carts', 'paksa-cart-recovery'); ?></h2>
                 <?php if ($recent): ?>
                 <table class="widefat striped">

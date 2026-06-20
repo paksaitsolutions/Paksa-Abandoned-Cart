@@ -79,6 +79,7 @@ final class Paksa_Cart_Recovery {
         require_once PAKSA_CR_PATH . 'includes/class-paksa-email.php';
         require_once PAKSA_CR_PATH . 'includes/class-paksa-coupon.php';
         require_once PAKSA_CR_PATH . 'includes/class-paksa-popup.php';
+        require_once PAKSA_CR_PATH . 'includes/class-paksa-geolocation.php';
         require_once PAKSA_CR_PATH . 'includes/class-paksa-updater.php';
 
         if (is_admin()) {
@@ -95,6 +96,7 @@ final class Paksa_Cart_Recovery {
         new Paksa_Cron();
         new Paksa_Coupon();
         new Paksa_Popup();
+        new Paksa_Geolocation();
         new Paksa_Updater();
 
         if (is_admin()) {

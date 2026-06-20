@@ -29,6 +29,7 @@ class Paksa_DB {
             email_sent_24h TINYINT(1) NOT NULL DEFAULT 0,
             email_sent_72h TINYINT(1) NOT NULL DEFAULT 0,
             ip_address VARCHAR(45) NOT NULL DEFAULT '',
+            location VARCHAR(200) NOT NULL DEFAULT '',
             user_agent VARCHAR(255) NOT NULL DEFAULT '',
             recovered_via VARCHAR(20) NOT NULL DEFAULT '',
             abandoned_at datetime DEFAULT NULL,
@@ -369,5 +370,17 @@ class Paksa_DB {
             $counts[$row->status] = (int) $row->count;
         }
         return $counts;
+    }
+
+    public static function get_top_locations(int $limit = 10): array {
+        global $wpdb;
+        $table = self::table();
+        return $wpdb->get_results($wpdb->prepare(
+            "SELECT location, COUNT(*) as count, SUM(cart_total) as revenue
+             FROM {$table}
+             WHERE status = 'abandoned' AND location != '' AND location != '—'
+             GROUP BY location ORDER BY count DESC LIMIT %d",
+            $limit
+        ));
     }
 }
