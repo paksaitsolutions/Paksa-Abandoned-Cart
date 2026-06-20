@@ -157,6 +157,11 @@ class Paksa_Admin {
             update_option('paksa_cr_email_1h', isset($_POST['email_1h']) ? 'yes' : 'no');
             update_option('paksa_cr_email_24h', isset($_POST['email_24h']) ? 'yes' : 'no');
             update_option('paksa_cr_email_72h', isset($_POST['email_72h']) ? 'yes' : 'no');
+            update_option('paksa_cr_admin_notify', isset($_POST['admin_notify']) ? 'yes' : 'no');
+            update_option('paksa_cr_admin_notify_threshold', absint($_POST['admin_notify_threshold'] ?? 5000));
+            update_option('paksa_cr_admin_notify_email', sanitize_email($_POST['admin_notify_email'] ?? ''));
+            update_option('paksa_cr_webhook_abandoned', esc_url_raw($_POST['webhook_abandoned'] ?? ''));
+            update_option('paksa_cr_webhook_recovered', esc_url_raw($_POST['webhook_recovered'] ?? ''));
             echo '<div class="updated"><p>' . esc_html__('Settings saved.', 'paksa-cart-recovery') . '</p></div>';
         }
         include PAKSA_CR_PATH . 'admin/views/settings.php';

@@ -44,6 +44,12 @@ $options = [
     'paksa_cr_popup_heading',
     'paksa_cr_popup_text',
     'paksa_cr_popup_button',
+    'paksa_cr_admin_notify',
+    'paksa_cr_admin_notify_threshold',
+    'paksa_cr_admin_notify_email',
+    'paksa_cr_notified_ids',
+    'paksa_cr_webhook_abandoned',
+    'paksa_cr_webhook_recovered',
 ];
 
 foreach ($options as $option) {

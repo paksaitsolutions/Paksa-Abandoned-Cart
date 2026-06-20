@@ -79,6 +79,11 @@ class Paksa_DB {
             'paksa_cr_popup_heading'     => "Wait! Don't leave yet!",
             'paksa_cr_popup_text'        => "Enter your phone number and we'll save your cart for you.",
             'paksa_cr_popup_button'      => 'Save My Cart',
+            'paksa_cr_admin_notify'      => 'no',
+            'paksa_cr_admin_notify_threshold' => 5000,
+            'paksa_cr_admin_notify_email' => '',
+            'paksa_cr_webhook_abandoned'  => '',
+            'paksa_cr_webhook_recovered'  => '',
         ];
         foreach ($defaults as $key => $value) {
             if (get_option($key) === false) {

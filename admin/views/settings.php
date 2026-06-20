@@ -154,6 +154,50 @@
             </table>
         </div>
 
+        <div class="paksa-cr-card">
+            <h2><?php esc_html_e('🚨 Admin Notifications', 'paksa-cart-recovery'); ?></h2>
+            <table class="form-table">
+                <tr>
+                    <th><?php esc_html_e('Enable Admin Alerts', 'paksa-cart-recovery'); ?></th>
+                    <td>
+                        <label><input type="checkbox" name="admin_notify" value="yes" <?php checked(get_option('paksa_cr_admin_notify', 'no'), 'yes'); ?>> <?php esc_html_e('Email me when a high-value cart is abandoned', 'paksa-cart-recovery'); ?></label>
+                    </td>
+                </tr>
+                <tr>
+                    <th><label for="admin_notify_threshold"><?php esc_html_e('Minimum Cart Value', 'paksa-cart-recovery'); ?></label></th>
+                    <td>
+                        <input type="number" id="admin_notify_threshold" name="admin_notify_threshold" value="<?php echo esc_attr(get_option('paksa_cr_admin_notify_threshold', 5000)); ?>" min="0" class="small-text">
+                        <p class="description"><?php esc_html_e('Only notify for carts above this value.', 'paksa-cart-recovery'); ?></p>
+                    </td>
+                </tr>
+                <tr>
+                    <th><label for="admin_notify_email"><?php esc_html_e('Notification Email', 'paksa-cart-recovery'); ?></label></th>
+                    <td>
+                        <input type="email" id="admin_notify_email" name="admin_notify_email" value="<?php echo esc_attr(get_option('paksa_cr_admin_notify_email', get_option('admin_email'))); ?>" class="regular-text">
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="paksa-cr-card">
+            <h2><?php esc_html_e('🔗 Webhooks (Zapier/n8n)', 'paksa-cart-recovery'); ?></h2>
+            <p class="description"><?php esc_html_e('Enter webhook URLs to receive cart events as JSON POST requests.', 'paksa-cart-recovery'); ?></p>
+            <table class="form-table">
+                <tr>
+                    <th><label for="webhook_abandoned"><?php esc_html_e('Cart Abandoned URL', 'paksa-cart-recovery'); ?></label></th>
+                    <td>
+                        <input type="url" id="webhook_abandoned" name="webhook_abandoned" value="<?php echo esc_attr(get_option('paksa_cr_webhook_abandoned', '')); ?>" class="large-text" placeholder="https://hooks.zapier.com/...">
+                    </td>
+                </tr>
+                <tr>
+                    <th><label for="webhook_recovered"><?php esc_html_e('Cart Recovered URL', 'paksa-cart-recovery'); ?></label></th>
+                    <td>
+                        <input type="url" id="webhook_recovered" name="webhook_recovered" value="<?php echo esc_attr(get_option('paksa_cr_webhook_recovered', '')); ?>" class="large-text" placeholder="https://hooks.zapier.com/...">
+                    </td>
+                </tr>
+            </table>
+        </div>
+
         <p><input type="submit" name="paksa_cr_save_settings" class="button button-primary" value="<?php esc_attr_e('💾 Save Settings', 'paksa-cart-recovery'); ?>"></p>
     </form>
 </div>

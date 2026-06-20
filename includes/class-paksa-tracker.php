@@ -234,6 +234,9 @@ class Paksa_Tracker {
                 'recovered_via' => $via,
             ]);
 
+            // Fire webhook
+            Paksa_Webhooks::fire_recovered((int) $existing->id);
+
             // Add order note
             $order = wc_get_order($order_id);
             if ($order) {

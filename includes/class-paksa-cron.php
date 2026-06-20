@@ -32,14 +32,29 @@ class Paksa_Cron {
         $timeout = (int) get_option('paksa_cr_abandon_timeout', 30);
         $now     = current_time('mysql');
 
-        $wpdb->query($wpdb->prepare(
-            "UPDATE {$table}
-             SET status = 'abandoned', abandoned_at = %s
+        // Get IDs before updating so we can fire webhooks
+        $cart_ids = $wpdb->get_col($wpdb->prepare(
+            "SELECT id FROM {$table}
              WHERE status = 'active'
                AND phone_number != ''
                AND updated_at < DATE_SUB(%s, INTERVAL %d MINUTE)",
-            $now, $now, $timeout
+            $now, $timeout
         ));
+
+        if (empty($cart_ids)) return;
+
+        $ids_placeholder = implode(',', array_map('intval', $cart_ids));
+        $wpdb->query($wpdb->prepare(
+            "UPDATE {$table}
+             SET status = 'abandoned', abandoned_at = %s
+             WHERE id IN ({$ids_placeholder})",
+            $now
+        ));
+
+        // Fire webhooks for each newly abandoned cart
+        foreach ($cart_ids as $id) {
+            Paksa_Webhooks::fire_abandoned((int) $id);
+        }
     }
 
     /**
