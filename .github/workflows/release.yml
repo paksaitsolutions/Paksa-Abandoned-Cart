@@ -33,7 +33,7 @@ jobs:
       run: |
         mkdir -p /tmp/paksa-cart-recovery
         cp -r admin assets includes languages templates /tmp/paksa-cart-recovery/
-        cp paksa-cart-recovery.php index.php uninstall.php composer.json /tmp/paksa-cart-recovery/
+        cp paksa-cart-recovery.php index.php uninstall.php composer.json readme.txt /tmp/paksa-cart-recovery/
         cd /tmp && zip -r $GITHUB_WORKSPACE/paksa-cart-recovery.zip paksa-cart-recovery/
 
     - name: Verify Zip Structure

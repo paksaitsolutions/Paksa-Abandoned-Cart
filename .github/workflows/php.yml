@@ -31,7 +31,7 @@ jobs:
       run: |
         mkdir -p paksa-cart-recovery
         cp -r admin assets includes languages templates paksa-cart-recovery/
-        cp paksa-cart-recovery.php index.php uninstall.php composer.json paksa-cart-recovery/
+        cp paksa-cart-recovery.php index.php uninstall.php composer.json readme.txt paksa-cart-recovery/
 
     - name: Upload Installable Plugin
       uses: actions/upload-artifact@v4
