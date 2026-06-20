@@ -52,7 +52,6 @@ $options = [
     'paksa_cr_webhook_recovered',
     'paksa_cr_push_enabled',
     'paksa_cr_push_subscriptions',
-    'paksa_cr_push_vapid_public',
     'paksa_cr_share_enabled',
 ];
 

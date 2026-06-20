@@ -98,7 +98,7 @@ class Paksa_Notifications {
         $admin_email = get_option('paksa_cr_admin_notify_email', get_option('admin_email'));
         $store_name  = get_bloginfo('name');
 
-        $subject = sprintf(__('[%s] High-Value Cart Abandoned - %s', 'paksa-cart-recovery'), $store_name, wc_price($to_notify[0]->cart_total));
+        $subject = sprintf(__('[%s] High-Value Cart Abandoned - %s', 'paksa-cart-recovery'), $store_name, strip_tags(wc_price($to_notify[0]->cart_total)));
 
         $body = '<h2>' . __('🚨 High-Value Cart Abandoned', 'paksa-cart-recovery') . '</h2>';
         $body .= '<table style="width:100%;border-collapse:collapse;">';

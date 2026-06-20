@@ -12,6 +12,19 @@ class Paksa_Cart_Share {
         add_action('wp_ajax_nopriv_paksa_cr_share_cart', [$this, 'generate_share_link']);
         add_shortcode('paksa_share_cart', [$this, 'share_button_shortcode']);
         add_action('woocommerce_cart_actions', [$this, 'add_share_button_to_cart']);
+        add_action('wp_enqueue_scripts', [$this, 'enqueue_share_script']);
+    }
+
+    public function enqueue_share_script(): void {
+        if (get_option('paksa_cr_share_enabled', 'yes') !== 'yes') return;
+        if (!function_exists('is_cart') || !is_cart()) return;
+        if (!function_exists('WC') || !WC()->cart || WC()->cart->is_empty()) return;
+
+        wp_enqueue_script('paksa-cr-share', PAKSA_CR_URL . 'assets/js/share.js', ['jquery'], PAKSA_CR_VERSION, true);
+        wp_localize_script('paksa-cr-share', 'paksa_cr_share', [
+            'ajax_url' => admin_url('admin-ajax.php'),
+            'nonce'    => wp_create_nonce('paksa_cr_nonce'),
+        ]);
     }
 
     /**
@@ -27,29 +40,8 @@ class Paksa_Cart_Share {
             <p style="margin:0 0 8px;font-size:13px;font-weight:600;"><?php esc_html_e('Share your cart:', 'paksa-cart-recovery'); ?></p>
             <input type="text" id="paksa-cr-share-url" style="width:100%;padding:8px;border:1px solid #ddd;border-radius:4px;margin-bottom:8px;" readonly>
             <a id="paksa-cr-share-wa" href="#" target="_blank" style="display:inline-block;background:#25d366;color:#fff;padding:8px 16px;border-radius:4px;text-decoration:none;font-size:13px;font-weight:600;">💬 WhatsApp</a>
-            <button type="button" onclick="navigator.clipboard.writeText(document.getElementById('paksa-cr-share-url').value);this.textContent='✓ Copied!'" style="padding:8px 16px;border:1px solid #ddd;border-radius:4px;background:#fff;cursor:pointer;font-size:13px;">📋 Copy</button>
+            <button type="button" id="paksa-cr-share-copy" style="padding:8px 16px;border:1px solid #ddd;border-radius:4px;background:#fff;cursor:pointer;font-size:13px;">📋 Copy</button>
         </div>
-        <script>
-        document.getElementById('paksa-cr-share-cart').addEventListener('click', function() {
-            var btn = this;
-            btn.disabled = true;
-            btn.textContent = '⏳ Generating...';
-            var xhr = new XMLHttpRequest();
-            xhr.open('POST', '<?php echo esc_js(admin_url('admin-ajax.php')); ?>');
-            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-            xhr.onload = function() {
-                btn.disabled = false;
-                btn.textContent = '📤 Share Cart';
-                var res = JSON.parse(xhr.responseText);
-                if (res.success) {
-                    document.getElementById('paksa-cr-share-url').value = res.data.share_url;
-                    document.getElementById('paksa-cr-share-wa').href = res.data.whatsapp_url;
-                    document.getElementById('paksa-cr-share-result').style.display = 'block';
-                }
-            };
-            xhr.send('action=paksa_cr_share_cart&nonce=<?php echo wp_create_nonce('paksa_cr_nonce'); ?>');
-        });
-        </script>
         <?php
     }
 

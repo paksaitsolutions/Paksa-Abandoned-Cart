@@ -85,7 +85,6 @@ final class Paksa_Cart_Recovery {
         require_once PAKSA_CR_PATH . 'includes/class-paksa-push.php';
         require_once PAKSA_CR_PATH . 'includes/class-paksa-landing-page.php';
         require_once PAKSA_CR_PATH . 'includes/class-paksa-cart-share.php';
-        require_once PAKSA_CR_PATH . 'includes/class-paksa-updater.php';
 
         if (is_admin()) {
             require_once PAKSA_CR_PATH . 'admin/class-paksa-admin.php';
@@ -107,7 +106,6 @@ final class Paksa_Cart_Recovery {
         new Paksa_Push();
         new Paksa_Landing_Page();
         new Paksa_Cart_Share();
-        new Paksa_Updater();
 
         if (is_admin()) {
             new Paksa_Admin();

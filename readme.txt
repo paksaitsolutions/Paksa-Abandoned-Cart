@@ -2,7 +2,7 @@
 Contributors: paksaitsolutions
 Tags: abandoned-cart, woocommerce, cart-recovery, phone-number, pakistan
 Requires at least: 6.0
-Tested up to: 6.7
+Tested up to: 7.0
 Requires PHP: 8.0
 Stable tag: 1.4.0
 License: GPLv2 or later
@@ -34,7 +34,6 @@ Unlike traditional abandoned cart solutions that depend on email marketing, this
 * **Dashboard Widget** — Quick stats on WordPress admin home
 * **Analytics & Reports** — Daily, weekly, monthly recovery reports
 * **CSV Export** — Export all abandoned cart data
-* **Auto Updates** — Automatic plugin updates from GitHub releases
 
 = Why Paksa Cart Recovery? =
 

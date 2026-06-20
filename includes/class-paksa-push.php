@@ -12,7 +12,7 @@ class Paksa_Push {
         add_action('wp_ajax_paksa_cr_push_subscribe', [$this, 'save_subscription']);
         add_action('wp_ajax_nopriv_paksa_cr_push_subscribe', [$this, 'save_subscription']);
         add_action('paksa_cr_check_abandoned', [$this, 'send_push_notifications']);
-        add_action('wp_head', [$this, 'register_service_worker_route']);
+        add_action('template_redirect', [$this, 'serve_service_worker']);
     }
 
     public function enqueue_scripts(): void {
@@ -31,7 +31,7 @@ class Paksa_Push {
     /**
      * Serve the service worker JS via a query parameter route.
      */
-    public function register_service_worker_route(): void {
+    public function serve_service_worker(): void {
         if (!isset($_GET['paksa_cr_sw'])) return;
 
         header('Content-Type: application/javascript');
@@ -42,27 +42,25 @@ class Paksa_Push {
 
     private function get_service_worker_js(): string {
         $icon = get_site_icon_url(192) ?: '';
-        return <<<JS
-self.addEventListener('push', function(event) {
-    var data = event.data ? event.data.json() : {};
-    var title = data.title || 'You left something behind!';
-    var options = {
-        body: data.body || 'Your cart is waiting for you.',
-        icon: data.icon || '{$icon}',
-        badge: data.icon || '{$icon}',
-        data: { url: data.url || '/' },
-        requireInteraction: true,
-        actions: [{ action: 'open', title: 'Complete Order' }]
-    };
-    event.waitUntil(self.registration.showNotification(title, options));
-});
-
-self.addEventListener('notificationclick', function(event) {
-    event.notification.close();
-    var url = event.notification.data.url || '/';
-    event.waitUntil(clients.openWindow(url));
-});
-JS;
+        $js  = "self.addEventListener('push', function(event) {";
+        $js .= "  var data = event.data ? event.data.json() : {};";
+        $js .= "  var title = data.title || 'You left something behind!';";
+        $js .= "  var options = {";
+        $js .= "    body: data.body || 'Your cart is waiting for you.',";
+        $js .= "    icon: data.icon || '" . esc_js($icon) . "',";
+        $js .= "    badge: data.icon || '" . esc_js($icon) . "',";
+        $js .= "    data: { url: data.url || '/' },";
+        $js .= "    requireInteraction: true,";
+        $js .= "    actions: [{ action: 'open', title: 'Complete Order' }]";
+        $js .= "  };";
+        $js .= "  event.waitUntil(self.registration.showNotification(title, options));";
+        $js .= "});";
+        $js .= "self.addEventListener('notificationclick', function(event) {";
+        $js .= "  event.notification.close();";
+        $js .= "  var url = event.notification.data.url || '/';";
+        $js .= "  event.waitUntil(clients.openWindow(url));";
+        $js .= "});";
+        return $js;
     }
 
     /**
