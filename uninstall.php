@@ -50,6 +50,10 @@ $options = [
     'paksa_cr_notified_ids',
     'paksa_cr_webhook_abandoned',
     'paksa_cr_webhook_recovered',
+    'paksa_cr_push_enabled',
+    'paksa_cr_push_subscriptions',
+    'paksa_cr_push_vapid_public',
+    'paksa_cr_share_enabled',
 ];
 
 foreach ($options as $option) {

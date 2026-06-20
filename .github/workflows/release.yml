@@ -2,12 +2,13 @@ name: Release Plugin
 
 on:
   push:
+    branches: [ "main" ]
 
 permissions:
   contents: write
 
 jobs:
-  build-release:
+  release:
     runs-on: ubuntu-latest
 
     steps:
@@ -21,6 +22,13 @@ jobs:
     - name: PHP Syntax Check
       run: find . -name "*.php" -not -path "./.github/*" -not -path "./vendor/*" -exec php -l {} \;
 
+    - name: Extract Version
+      id: version
+      run: |
+        VERSION=$(grep -oP "define\('PAKSA_CR_VERSION',\s*'\\K[^']+" paksa-cart-recovery.php)
+        echo "version=$VERSION" >> $GITHUB_OUTPUT
+        echo "Plugin version: $VERSION"
+
     - name: Build Plugin Zip
       run: |
         mkdir -p /tmp/paksa-cart-recovery
@@ -29,11 +37,20 @@ jobs:
         cd /tmp && zip -r $GITHUB_WORKSPACE/paksa-cart-recovery.zip paksa-cart-recovery/
 
     - name: Verify Zip Structure
-      run: unzip -l paksa-cart-recovery.zip | head -30
+      run: unzip -l paksa-cart-recovery.zip | head -40
+
+    - name: Delete Existing Release (if same version)
+      run: |
+        gh release delete "v${{ steps.version.outputs.version }}" --yes 2>/dev/null || true
+        git push origin :refs/tags/v${{ steps.version.outputs.version }} 2>/dev/null || true
+      env:
+        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
     - name: Create Release
-      if: startsWith(github.ref, 'refs/tags/')
       uses: softprops/action-gh-release@v2
       with:
+        tag_name: v${{ steps.version.outputs.version }}
+        name: Paksa Cart Recovery v${{ steps.version.outputs.version }}
         files: paksa-cart-recovery.zip
         generate_release_notes: true
+        make_latest: true

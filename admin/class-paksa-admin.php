@@ -162,6 +162,8 @@ class Paksa_Admin {
             update_option('paksa_cr_admin_notify_email', sanitize_email($_POST['admin_notify_email'] ?? ''));
             update_option('paksa_cr_webhook_abandoned', esc_url_raw($_POST['webhook_abandoned'] ?? ''));
             update_option('paksa_cr_webhook_recovered', esc_url_raw($_POST['webhook_recovered'] ?? ''));
+            update_option('paksa_cr_push_enabled', isset($_POST['push_enabled']) ? 'yes' : 'no');
+            update_option('paksa_cr_share_enabled', isset($_POST['share_enabled']) ? 'yes' : 'no');
             echo '<div class="updated"><p>' . esc_html__('Settings saved.', 'paksa-cart-recovery') . '</p></div>';
         }
         include PAKSA_CR_PATH . 'admin/views/settings.php';

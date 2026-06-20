@@ -3,7 +3,7 @@
  * Plugin Name: Paksa Cart Recovery
  * Plugin URI: https://paksa.com.pk
  * Description: Phone-number-based abandoned cart recovery for WooCommerce. Built for Pakistani eCommerce markets.
- * Version: 1.3.0
+ * Version: 1.4.0
  * Author: Paksa IT Solutions
  * Author URI: https://paksa.com.pk
  * License: GPL v2 or later
@@ -17,7 +17,7 @@
 
 defined('ABSPATH') || exit;
 
-define('PAKSA_CR_VERSION', '1.3.0');
+define('PAKSA_CR_VERSION', '1.4.0');
 define('PAKSA_CR_FILE', __FILE__);
 define('PAKSA_CR_PATH', plugin_dir_path(__FILE__));
 define('PAKSA_CR_URL', plugin_dir_url(__FILE__));
@@ -82,6 +82,9 @@ final class Paksa_Cart_Recovery {
         require_once PAKSA_CR_PATH . 'includes/class-paksa-geolocation.php';
         require_once PAKSA_CR_PATH . 'includes/class-paksa-notifications.php';
         require_once PAKSA_CR_PATH . 'includes/class-paksa-webhooks.php';
+        require_once PAKSA_CR_PATH . 'includes/class-paksa-push.php';
+        require_once PAKSA_CR_PATH . 'includes/class-paksa-landing-page.php';
+        require_once PAKSA_CR_PATH . 'includes/class-paksa-cart-share.php';
         require_once PAKSA_CR_PATH . 'includes/class-paksa-updater.php';
 
         if (is_admin()) {
@@ -101,6 +104,9 @@ final class Paksa_Cart_Recovery {
         new Paksa_Geolocation();
         new Paksa_Notifications();
         new Paksa_Webhooks();
+        new Paksa_Push();
+        new Paksa_Landing_Page();
+        new Paksa_Cart_Share();
         new Paksa_Updater();
 
         if (is_admin()) {

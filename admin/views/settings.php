@@ -198,6 +198,32 @@
             </table>
         </div>
 
+        <div class="paksa-cr-card">
+            <h2><?php esc_html_e('🔔 Browser Push Notifications', 'paksa-cart-recovery'); ?></h2>
+            <table class="form-table">
+                <tr>
+                    <th><?php esc_html_e('Enable Push Notifications', 'paksa-cart-recovery'); ?></th>
+                    <td>
+                        <label><input type="checkbox" name="push_enabled" value="yes" <?php checked(get_option('paksa_cr_push_enabled', 'no'), 'yes'); ?>> <?php esc_html_e('Ask visitors for notification permission and send recovery alerts', 'paksa-cart-recovery'); ?></label>
+                        <p class="description"><?php esc_html_e('Sends browser notification when cart is abandoned. Works without email or phone.', 'paksa-cart-recovery'); ?></p>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="paksa-cr-card">
+            <h2><?php esc_html_e('📱 Cart Sharing', 'paksa-cart-recovery'); ?></h2>
+            <table class="form-table">
+                <tr>
+                    <th><?php esc_html_e('Enable Cart Sharing', 'paksa-cart-recovery'); ?></th>
+                    <td>
+                        <label><input type="checkbox" name="share_enabled" value="yes" <?php checked(get_option('paksa_cr_share_enabled', 'yes'), 'yes'); ?>> <?php esc_html_e('Show "Share Cart" button on cart page', 'paksa-cart-recovery'); ?></label>
+                        <p class="description"><?php esc_html_e('Customers can share their cart via WhatsApp or link. Useful when someone else is paying.', 'paksa-cart-recovery'); ?></p>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
         <p><input type="submit" name="paksa_cr_save_settings" class="button button-primary" value="<?php esc_attr_e('💾 Save Settings', 'paksa-cart-recovery'); ?>"></p>
     </form>
 </div>

@@ -84,6 +84,8 @@ class Paksa_DB {
             'paksa_cr_admin_notify_email' => '',
             'paksa_cr_webhook_abandoned'  => '',
             'paksa_cr_webhook_recovered'  => '',
+            'paksa_cr_push_enabled'       => 'no',
+            'paksa_cr_share_enabled'      => 'yes',
         ];
         foreach ($defaults as $key => $value) {
             if (get_option($key) === false) {
